@@ -35,5 +35,23 @@ contract Marketplace {
 
       // Emit withdraw event.
       emit UserWithdraw(msg.sender, nonFungibleTokenID);
+      
+    }
+     
+    function setPricePerBlock(uint price) public {
+         
+    }
+    
+    function lease(address nonFungibleTokenID) public {
+    
+    }
+    
+    function collectRent(address leasedNFTId, uint amount) public {
+    
+    }
+    
+    function reclaimNFT(address leasedNFTiD) public onlyOwner(OWNER_ROLE) {
+    
+    }
 
 }
