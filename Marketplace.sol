@@ -25,5 +25,15 @@ contract Marketplace {
       
       emit UserDeposit(msg.sender, nonFungibleTokenID);
     }
+    
+    function withdraw(address nonFungibleTokenID) public {
+      (address nonFungibleTokenID) =  _checkBalances(msg.sender, rentedTokenID);
+      
+      require(rentedTokenId == exists);
+      
+      ERC721(rentedTokenID).transfer(msg.sender, nonFungibleTokenID);
+
+      // Emit withdraw event.
+      emit UserWithdraw(msg.sender, nonFungibleTokenID);
 
 }
