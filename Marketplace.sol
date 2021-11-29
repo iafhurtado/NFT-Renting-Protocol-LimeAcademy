@@ -45,11 +45,14 @@ contract Marketplace {
     }
     
     function collectRent(address leasedNFTId, uint amount) public {
-    
+    // add visibility here- after how many blocks the lender can get his rent 
+    // add visibility here- is he/she eligible for some of these actions or if you execute the transaction it's going to be reverted? 
     }
     
     function reclaimNFT(address leasedNFTiD) public onlyOwner(OWNER_ROLE) {
-    
+    // add visibility here - after how many blocks the lender can reclaim its nft back?
+    // add visibility here- is he/she eligible for some of these actions or if you execute the transaction it's going to be reverted? 
+
     }
 
 }
