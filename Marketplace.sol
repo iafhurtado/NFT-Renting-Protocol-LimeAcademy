@@ -51,7 +51,8 @@ contract Marketplace {
     }
     
     
-    //this function is the action that a lender can take when he wants to get the NFT transfered from the contract to his wallet
+    // this function is the action that a lender can take when he wants to get the NFT transfered from the contract to his wallet
+    // this must be the point where we remove the right of the owner to transfer the ERC721
     function lease(address nonFungibleTokenID) public {
     
     }
