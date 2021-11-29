@@ -15,8 +15,15 @@ contract EscrowState {
 }
 
 contract Marketplace {
-    function deposit(address nonFungibleTokenID) external onlyRole(OWNER && OPERATOR) {
-                   emit HouseRegistered(houseAddress, hOfCoin.HOUSE_TYPE(), asset);
-    
+    function deposit(address nonFungibleTokenID) public {
+      
+      // Transfer reserveAsset amount to this contract.
+      ERC721(nonFungibleTokenID).transferFrom(msg.sender, address(this), amount);
+      
+      
+      escrowState.mint(msg.sender, nonFungibleTokenID, "");
+      
+      emit UserDeposit(msg.sender, nonFungibleTokenID);
+    }
 
 }
