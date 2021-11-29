@@ -4,10 +4,8 @@ pragma solidity 0.8.2;
 contract EscrowState {
      mapping(uint => address) public approvedRenters;
 
-    // 
     mapping(address => mapping(address => uint)) public ListedNFTsIds;
 
-    // 
     mapping(address => address) public requestsToBeOperator;
     
     event UserDeposit(address indexed user, address indexed asset, uint amount);
