@@ -9,7 +9,7 @@ pragma solidity 0.8.2;
 * @dev  Contracts are split into state and functionality.
 */
 
-contract EscrowState {
+contract MarketplaceState {
     mapping(uint => address) public approvedRenters;
 
     mapping(address => mapping(address => uint)) public ListedNFTsIds;
