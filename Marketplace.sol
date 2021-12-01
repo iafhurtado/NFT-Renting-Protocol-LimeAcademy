@@ -44,24 +44,24 @@ contract Marketplace {
     }
     
     
-    // this function is to set a price per block for the nonFungibleTokenID
+    // this function is to set a price per block for the nonFungibleTokenID.
     function setPricePerBlock(uint price) public {
          
     }
     
     
-    // this function is the action that a lender can take when he wants to get the NFT transfered from the contract to his wallet
+    // this function is the action that a lender can take when he wants to get the NFT transfered from the contract to his wallet.
     function rentOut(address nonFungibleTokenID) public {
     
     }
     
-    // add visibility here- after how many blocks the lender can get his rent 
-    // add visibility here- is he/she eligible for some of these actions or if you execute the transaction it's going to be reverted? 
+    // add visibility here- after how many blocks the lender can get his rent .
+    // add visibility here- is he/she eligible for some of these actions or if you execute the transaction it's going to be reverted? .
     function collectRent(address leasedNFTId, uint amount) public {
     }
     
-    // add visibility here - after how many blocks the lender can reclaim its nft back?
-    // add visibility here- is he/she eligible for some of these actions or if you execute the transaction it's going to be reverted?
+    // add visibility here - after how many blocks the lender can reclaim its nft back?.
+    // add visibility here- is he/she eligible for some of these actions or if you execute the transaction it's going to be reverted?.
     function reclaimNFT(address leasedNFTiD) public onlyOwner(OWNER_ROLE) { 
     }
 
