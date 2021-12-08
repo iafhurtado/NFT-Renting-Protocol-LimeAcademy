@@ -107,7 +107,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
     }
 
     /**
-     * @dev See {IERC721-approve}.
+     * @dev See {IERC721-approve}. IYKYK
      */
     function approve(address to, uint256 tokenId) public virtual override {
         address owner = ERC721.ownerOf(tokenId);
