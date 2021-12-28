@@ -14,24 +14,24 @@ import "./NFTLabStoreMarketplaceVariant.sol";
  * implemented. The item tokenization is responsibility of the ERC721 contract
  * which should encode any item details.
  */
-contract Marketplace is Ownable {
-    event TradeStatusChange(uint256 id, string status);
+contract RentingMarketplace is Ownable {
+    event RentStatusChange(uint256 id, string status);
 
     NFTLabStoreMarketplaceVariant tokenHandler;
 
-    struct Trade {
+    struct Rent {
         address payable poster;
         uint256 item;
         uint256 price;
         bytes32 status; // Open, Executed, Cancelled
     }
 
-    mapping(uint256 => Trade) trades;
-    mapping(address => uint256[]) addressToTrades;
-    mapping(uint256 => uint256) nftToActivetrade;
+    mapping(uint256 => Rent) rents;
+    mapping(address => uint256[]) addressToRents;
+    mapping(uint256 => uint256) nftToActiveRent;
 
     using Counters for Counters.Counter;
-    Counters.Counter private tradeCounter;
+    Counters.Counter private rentCounter;
 
     constructor(string memory _name, string memory _symbol) {
         tokenHandler = new NFTLabStoreMarketplaceVariant(_name, _symbol);
@@ -41,7 +41,7 @@ contract Marketplace is Ownable {
      * @dev Returns the details for a trade.
      * @param _trade The id for the trade.
      */
-    function getTrade(uint256 _trade)
+    function getRent(uint256 _rent)
         public
         view
         virtual
@@ -52,29 +52,29 @@ contract Marketplace is Ownable {
             bytes32
         )
     {
-        Trade memory trade = trades[_trade];
-        return (trade.poster, trade.item, trade.price, trade.status);
+        Rent memory rent = rents[_rent];
+        return (rent.poster, rent.item, rent.price, rent.status);
     }
 
     /**
      * @dev Returns all the trades of an address
      * @param addr the addres of wich you want to get all the trades
      */
-    function getTradesOfAddress(address addr)
+    function getRentsOfAddress(address addr)
         public
         view
         virtual
         returns (uint256[] memory)
     {
-        return addressToTrades[addr];
+        return addressToRents[addr];
     }
 
     /**
      * @dev Returns the active trade of an NFT, 0 if no active trades are in place
      * @param _nft the nft of wich fetch the active trade
      */
-    function getTradeOfNft(uint256 _nft) public view virtual returns (uint256) {
-        return nftToActivetrade[_nft];
+    function getRentOfNft(uint256 _nft) public view virtual returns (uint256) {
+        return nftToActiveRent[_nft];
     }
 
     /**
@@ -82,18 +82,18 @@ contract Marketplace is Ownable {
      * @param _item The id for the item to trade.
      * @param _price The amount of currency for which to trade the item.
      */
-    function openTrade(uint256 _item, uint256 _price) external virtual {
+    function openRent(uint256 _item, uint256 _price) external virtual {
         tokenHandler._marketTransfer(msg.sender, address(this), _item);
-        tradeCounter.increment();
-        trades[tradeCounter.current()] = Trade({
+        rentCounter.increment();
+        rents[rentCounter.current()] = Rent({
             poster: payable(msg.sender),
             item: _item,
             price: _price,
             status: "Open"
         });
-        addressToTrades[msg.sender].push(tradeCounter.current());
-        nftToActivetrade[_item] = tradeCounter.current();
-        emit TradeStatusChange(tradeCounter.current(), "Open");
+        addressToRents[msg.sender].push(rentCounter.current());
+        nftToActiveRent[_item] = rentCounter.current();
+        emit RentStatusChange(rentCounter.current(), "Open");
     }
 
     /**
@@ -102,17 +102,26 @@ contract Marketplace is Ownable {
      * item to the filler.
      * @param _trade The id of an existing trade
      */
-    function executeTrade(uint256 _trade) external payable virtual {
-        Trade memory trade = trades[_trade];
-        _checkPayment(msg.value, trade.price);
-        require(trade.status == "Open", "Trade is not open");
-        bool sent = _pay(msg.sender, trade.poster, trade.price);
+    function executeRent(uint256 _rent) external payable virtual {
+        Rent memory rent = rents[_rent];
+        _checkPayment(msg.value, rent.price);
+        require(rent.status == "Open", "Rent is not open");
+        bool sent = _pay(msg.sender, rent.poster, rent.price);
         require(sent, "Failed to send eth to pay the art");
-        tokenHandler._marketTransfer(address(this), msg.sender, trade.item);
-        delete nftToActivetrade[trade.item];
-        trades[_trade].status = "Executed";
-        emit TradeStatusChange(_trade, "Executed");
+        tokenHandler._marketTransfer(address(this), msg.sender, rent.item);
+        delete nftToActiveRent[rent.item];
+        rents[_rent].status = "Executed";
+        emit RentStatusChange(_rent, "Executed");
     }
+
+        /**
+     * @dev Executes a trade. Must have approved this contract to transfer the
+     * amount of currency specified to the poster. Transfers ownership of the
+     * item to the filler.
+     * @param _trade The id of an existing trade
+     */
+     function pullRent(uint25 _rent) external virtual {
+     }
 
     /**
      * @dev Pays the reciver the selected amount;
@@ -146,17 +155,17 @@ contract Marketplace is Ownable {
      * poster.
      * @param _trade The trade to be cancelled.
      */
-    function cancelTrade(uint256 _trade) external virtual {
-        Trade memory trade = trades[_trade];
+    function cancelRent(uint256 _rent) external virtual {
+        Rent memory rent = rents[_rent];
         require(
-            msg.sender == trade.poster,
-            "Trade can be cancelled only by poster."
+            msg.sender == rent.poster,
+            "Rent can be cancelled only by poster."
         );
-        require(trade.status == "Open", "Trade is not open");
-        tokenHandler._marketTransfer(address(this), trade.poster, trade.item);
-        trades[_trade].status = "Cancelled";
-        delete nftToActivetrade[trade.item];
-        emit TradeStatusChange(_trade, "Cancelled");
+        require(rent.status == "Open", "Rent is not open");
+        tokenHandler._marketTransfer(address(this), rent.poster, rent.item);
+        rents[_rent].status = "Cancelled";
+        delete nftToActiverent[rent.item];
+        emit RentStatusChange(_rent, "Cancelled");
     }
 
     /**
