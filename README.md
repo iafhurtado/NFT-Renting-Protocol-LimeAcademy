@@ -15,9 +15,17 @@ The main component is the Marketplace, written in `contracts/RentingMarketplace.
 
 ### Mock Interfaces
 
-#### OpenRent
+#### Open Rent - Adding the NFT to the Marketplace
 This interface is where the Owner of the NFT will set the price per block he will charge and will see what item number his token will have. After calling the openRent function in `RentingMarketplace.sol` the msg.sender will send his token to the contract, the `rentCounter` will be incremented and a new entry will be added to the mapping `rents` and at the same time the `msg.sender` to `addressToRents` mapping and the newly added _item will be added to the `nftToActiveRent` mapping as well.
 ![openrent](https://user-images.githubusercontent.com/65864145/147577224-60cd2b48-6a53-445d-9a1f-0d808095b8b9.png)
 
-#### OpenRent
-This interface is where the Owner of the NFT will set the price per block he will charge and will see what item number his token will have. After calling the openRent function in `RentingMarketplace.sol` the msg.sender will send his token to the contract, the `rentCounter` will be incremented and a new entry will be added to the mapping `rents` and at the same time the `msg.sender` to `addressToRents` mapping and the newly added _item will be added to the `nftToActiveRent` mapping as well.
+#### RentingMarketplace - Interface displaying the `rents` mapping
+This interface is where the user looking to rent an NFT will see ALL the NFTs listed in the `NFTLabStore` , using the getRent function inside the `RentingMarketPlace.sol` contract to individually pull the relevant information from each NFT and display it. 
+![Renting MArketplace interface](https://user-images.githubusercontent.com/65864145/147577448-d29a1b77-7676-4939-ad59-c0da07f5a834.png)
+
+#### Execute Rent - Interface where the Renter will confirm his rental 
+This interface will allow the user to input the time parameter in days and see at a glance how much they will pay it for that i.e. if I want to rent it 30 days it will cost them 0.03 ETH (or any other ERC20 token)
+![executeRent](https://user-images.githubusercontent.com/65864145/147577892-d3173415-670c-4887-b772-9a3ee0122ac2.png)
+
+#### Pull Rent - Interface where the Renter will confirm his rental 
+This 
