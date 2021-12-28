@@ -10,7 +10,7 @@ import "./NFTLabStoreMarketplaceVariant.sol";
  * @title NFTLabMarketplace
  * @notice Implements a ERC721 token marketplace. The market will be governed
  * by the Ethereum currency, and an ERC721 token that represents the
- * ownership of the items being traded. Only ads for selling items are
+ * ownership of the items being traded. Only ads for renting items are
  * implemented. The item tokenization is responsibility of the ERC721 contract
  * which should encode any item details.
  */
@@ -38,8 +38,8 @@ contract RentingMarketplace is Ownable {
     }
 
     /**
-     * @dev Returns the details for a trade.
-     * @param _trade The id for the trade.
+     * @dev Returns the details for a rent.
+     * @param _rent The id for the rent.
      */
     function getRent(uint256 _rent)
         public
@@ -57,8 +57,8 @@ contract RentingMarketplace is Ownable {
     }
 
     /**
-     * @dev Returns all the trades of an address
-     * @param addr the addres of wich you want to get all the trades
+     * @dev Returns all the rents of an address
+     * @param addr the addres of wich you want to get all the rents
      */
     function getRentsOfAddress(address addr)
         public
@@ -70,17 +70,17 @@ contract RentingMarketplace is Ownable {
     }
 
     /**
-     * @dev Returns the active trade of an NFT, 0 if no active trades are in place
-     * @param _nft the nft of wich fetch the active trade
+     * @dev Returns the active rent of an NFT, 0 if no active rents are in place
+     * @param _nft the nft of wich fetch the active rent
      */
     function getRentOfNft(uint256 _nft) public view virtual returns (uint256) {
         return nftToActiveRent[_nft];
     }
 
     /**
-     * @dev Opens a new trade. Puts _item in escrow.
-     * @param _item The id for the item to trade.
-     * @param _price The amount of currency for which to trade the item.
+     * @dev Opens a new rent. Puts _item in escrow.
+     * @param _item The id for the item to rent.
+     * @param _price The amount of currency for which to rent the item.
      */
     function openRent(uint256 _item, uint256 _price) external virtual {
         tokenHandler._marketTransfer(msg.sender, address(this), _item);
@@ -97,10 +97,10 @@ contract RentingMarketplace is Ownable {
     }
 
     /**
-     * @dev Executes a trade. Must have approved this contract to transfer the
+     * @dev Executes a rent. Must have approved this contract to transfer the
      * amount of currency specified to the poster. Transfers ownership of the
-     * item to the filler.
-     * @param _trade The id of an existing trade
+     * item to the renter.
+     * @param _trade The id of an existing rent
      */
     function executeRent(uint256 _rent) external payable virtual {
         Rent memory rent = rents[_rent];
@@ -115,16 +115,14 @@ contract RentingMarketplace is Ownable {
     }
 
         /**
-     * @dev Executes a trade. Must have approved this contract to transfer the
-     * amount of currency specified to the poster. Transfers ownership of the
-     * item to the filler.
-     * @param _trade The id of an existing trade
+     * @dev pulls a rent from renter
+     * @param _trade The id of an existing rent
      */
      function pullRent(uint25 _rent) external virtual {
      }
 
     /**
-     * @dev Pays the reciver the selected amount;
+     * @dev Pays the poster the selected amount;
      * @param from the sender of the payament
      * @param to the reciver of the payament
      * @param amount amount to pay
@@ -151,9 +149,9 @@ contract RentingMarketplace is Ownable {
     }
 
     /**
-     * @dev Cancels a trade made by the poster, the NFT returns to the
+     * @dev Cancels a rent (withdraws token) made by the poster, the NFT returns to the
      * poster.
-     * @param _trade The trade to be cancelled.
+     * @param _trade The rent to be cancelled.
      */
     function cancelRent(uint256 _rent) external virtual {
         Rent memory rent = rents[_rent];
@@ -170,9 +168,9 @@ contract RentingMarketplace is Ownable {
 
     /**
      * @dev Returns the NFTLabStorage address to interact with nfts.
-     * The trade logic handles everything that regards moving tokens
-     * when they are put on a trade (so that owners cannot open a
-     * trade and then move them), this way the owner of an nft can do
+     * The rent logic handles everything that regards moving tokens
+     * when they are put on a rent (so that owners cannot open a
+     * rent and then move them), this way the owner of an nft can do
      * whatever he wants with it, even give it for free to someone
      * else
      */
