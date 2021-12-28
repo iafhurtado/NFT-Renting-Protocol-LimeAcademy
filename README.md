@@ -27,5 +27,7 @@ This interface is where the user looking to rent an NFT will see ALL the NFTs li
 This interface will allow the user to input the time parameter in days and see at a glance how much they will pay it for that i.e. if I want to rent it 30 days it will cost them 0.03 ETH (or any other ERC20 token)
 ![executeRent](https://user-images.githubusercontent.com/65864145/147577892-d3173415-670c-4887-b772-9a3ee0122ac2.png)
 
-#### Pull Rent - Interface where the Renter will confirm his rental 
-This 
+#### Pull Rent - Interface where the Owner(poster) will reclaim his token 
+This Interface, which should look the same as the one the Owner used to deposit his token into the Marketplace contract, only that once his NFT is rented then he has to wait until the token is back in the contract in order to withdraw it from the contract.
+![pullRent](https://user-images.githubusercontent.com/65864145/147578178-6fde95a5-bedb-454e-b5b0-e9a8c6bea973.png)
+
