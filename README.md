@@ -11,3 +11,13 @@ The main component is the Marketplace, written in `contracts/RentingMarketplace.
 
 
 ![marketplace full](https://user-images.githubusercontent.com/65864145/147574529-c1f1d385-10e0-429c-8cb8-97f77b52e6dd.png)
+
+
+### Mock Interfaces
+
+#### OpenRent
+This interface is where the Owner of the NFT will set the price per block he will charge and will see what item number his token will have. After calling the openRent function in `RentingMarketplace.sol` the msg.sender will send his token to the contract, the `rentCounter` will be incremented and a new entry will be added to the mapping `rents` and at the same time the `msg.sender` to `addressToRents` mapping and the newly added _item will be added to the `nftToActiveRent` mapping as well.
+![openrent](https://user-images.githubusercontent.com/65864145/147577224-60cd2b48-6a53-445d-9a1f-0d808095b8b9.png)
+
+#### OpenRent
+This interface is where the Owner of the NFT will set the price per block he will charge and will see what item number his token will have. After calling the openRent function in `RentingMarketplace.sol` the msg.sender will send his token to the contract, the `rentCounter` will be incremented and a new entry will be added to the mapping `rents` and at the same time the `msg.sender` to `addressToRents` mapping and the newly added _item will be added to the `nftToActiveRent` mapping as well.
