@@ -8,9 +8,9 @@ import "./RentingMarketplace.sol";
 
 /**
  * @title ETHMarketplace
- * @notice Implements a ERC721 token marketplace. The market will be governed
+ * @notice Implements a ERC721 token-renting marketplace. The market will be governed
  * by the Ethereum currency, and an ERC721 token that represents the
- * ownership of the items being traded. Only ads for selling items are
+ * ownership of the items being rented. Only ads for renting items are
  * implemented. The item tokenization is responsibility of the ERC721 contract
  * which should encode any item details.
  */
