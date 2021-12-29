@@ -10,7 +10,7 @@ import "./NFTLabStoreMarketplaceVariant.sol";
  * @title NFTLabMarketplace
  * @notice Implements a ERC721 token marketplace. The market will be governed
  * by the Ethereum currency, and an ERC721 token that represents the
- * ownership of the items being traded. Only ads for renting items are
+ * ownership of the items being rented. Only ads for renting items are
  * implemented. The item tokenization is responsibility of the ERC721 contract
  * which should encode any item details.
  */
