@@ -5,17 +5,17 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "./Marketplace.sol";
+import "./RentingMarketplace.sol";
 
 /**
  * @title ERC20Marketplace
  * @notice Implements the classifieds board market. The market will be governed
  * by an ERC20 token as currency, and an NFTLabMarketplaceVariant that represents the
- * ownership of the items being traded. Only ads for selling items are
+ * ownership of the items being rented. Only ads for renting items are
  * implemented. The item tokenization is responsibility of the ERC721 contract
  * which should encode any item details.
  */
-contract ERC20Marketplace is Marketplace {
+contract ERC20Marketplace is RentingMarketplace {
     IERC20 currencyToken;
 
     constructor(
