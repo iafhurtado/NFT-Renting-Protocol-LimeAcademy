@@ -14,7 +14,7 @@ import "./RentingMarketplace.sol";
  * implemented. The item tokenization is responsibility of the ERC721 contract
  * which should encode any item details.
  */
-contract ETHMarketplace is Marketplace {
+contract ETHMarketplace is RentingMarketplace {
     constructor(string memory _name, string memory _symbol)
         Marketplace(_name, _symbol)
     {}
