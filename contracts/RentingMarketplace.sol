@@ -106,7 +106,7 @@ contract RentingMarketplace is Ownable {
         Rent memory rent = rents[_rent];
         _checkPayment(msg.value, rent.price);
         require(rent.status == "Open", "Rent is not open");
-        bool sent = _pay(msg.sender, rent.poster, rent.price);
+        bool sent = _pay(msg.sender, rent.poster, msg.value);
         require(sent, "Failed to send eth to pay the art");
         tokenHandler._marketTransfer(address(this), msg.sender, rent.item);
         delete nftToActiveRent[rent.item];
